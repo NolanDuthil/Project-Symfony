@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil Utilisateur{% endblock %}
+
+{% block body %}
+<style>
+
+.container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 2rem;
+        gap: 2rem;
+    }
+    .profile-container {
+        width: 40rem;
+        margin: auto;
+        padding: 25px;
+        background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%);
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header h1 {
+        font-size: 32px;
+        color: #34495e;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .profile-header p {
+        color: #7f8c8d;
+        font-size: 18px;
+        margin-bottom: 40px;
+    }
+
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        margin-top: 2rem;
+        gap: 20px;
+    }
+
+
+    .profile-info label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .profile-info span {
+        font-size: 18px;
+        color: #34495e;
+        font-weight: 500;
+    }
+</style>
+
+<div class="container">
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>Profil de {{ user.username }}</h1>
+    </div>
+
+    <div class="profile-info">
+        <div>
+            <label>Nom</label>
+            <span>{{ user.nom }}</span>
+        </div>
+        <div>
+            <label>Prénom</label>
+            <span>{{ user.prenom }}</span>
+        </div>
+        <div>
+            <label>Rôle</label>
+            <span>{{ user.roles[0] }}</span>
+        </div>
+    </div>
+</div>
+
+<div class="profile-container">
+            <div class="profile-header">
+        <h1>Liste des événements</h1>
+    </div>
+        <div class="profile-info">
+            {% if user.getEvents() %}
+                <div>
+                    {% for event in user.getEvents() %}
+                        <div>{{ event.title }} - {{ event.dateDebut|date('Y-m-d H:i') }}</div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p>No events found.</p>
+            {% endif %}
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

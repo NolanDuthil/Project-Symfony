@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+
+    .container {
+        width: 40rem;
+        margin: 50px auto;
+        padding: 2em;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 1.5em;
+    }
+
+    .form-group {
+        margin-bottom: 1.5em;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        color: #333;
+        display: block;
+    }
+
+    input[type="text"], input[type="password"], input[type="email"], input[type="checkbox"], textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        outline: none;
+    }
+
+    .form-group input[type="checkbox"] {
+        width: auto;
+        margin-right: 10px;
+    }
+
+    .btn {
+        display: inline-block;
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn:hover {
+        background-color: #0056b3;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:active {
+        background-color: #003d80;
+    }
+
+    .form-errors {
+        margin-bottom: 1.5em;
+        color: #ff4d4d;
+    }
+</style>
+
+<div class="container">
+    <h1>Register</h1>
+
+    <div class="form-errors">
+        {{ form_errors(registrationForm) }}
+    </div>
+
+    {{ form_start(registrationForm) }}
+        <div class="form-group">
+            {{ form_label(registrationForm.email) }}
+            {{ form_widget(registrationForm.email) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.username) }}
+            {{ form_widget(registrationForm.username) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.nom) }}
+            {{ form_widget(registrationForm.nom) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.prenom) }}
+            {{ form_widget(registrationForm.prenom) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.actif) }}
+            {{ form_widget(registrationForm.actif) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.plainPassword, 'Password') }}
+            {{ form_widget(registrationForm.plainPassword) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(registrationForm.agreeTerms) }}
+            {{ form_widget(registrationForm.agreeTerms) }}
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationForm) }}
+</div>
+{% endblock %}

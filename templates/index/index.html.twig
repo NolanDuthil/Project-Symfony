@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Événements{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #f4f7fa;
+        font-family: 'Helvetica Neue', sans-serif;
+        color: #333;
+    }
+
+    .example-wrapper {
+        margin: 2em auto;
+        max-width: 900px;
+        width: 95%;
+    }
+
+    h1 {
+        font-size: 32px;
+        color: #2c3e50;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        color: #2980b9;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .event-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .event-card {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .event-card:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .event-title {
+        font-size: 20px;
+        font-weight: bold;
+        color: #34495e;
+        margin-bottom: 10px;
+    }
+
+    .event-date {
+        font-size: 14px;
+        color: #7f8c8d;
+        margin-bottom: 5px;
+    }
+
+    .event-description {
+        font-size: 16px;
+        color: #555;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+    .event-users {
+        font-size: 14px;
+        color: #7f8c8d;
+    }
+
+    .event-users span {
+        font-weight: bold;
+    }
+
+    .btn-view {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        font-size: 14px;
+        font-weight: bold;
+        margin-top: 2rem;
+    }
+
+    .btn-view:hover {
+        background-color: #0056b3;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-view:active {
+        background-color: #003d80;
+    }
+
+</style>
+
+<div class="example-wrapper">
+    <h1>Bienvenue, {{ app.user.prenom }} {{ app.user.nom }} !</h1>
+    
+    <h2>Événements à venir</h2>
+    <div class="event-list">
+        {% for event in events %}
+            <div class="event-card">
+                <div class="event-title">{{ event.title }}</div>
+                <div class="event-date"><strong>Date de début:</strong> {{ event.dateDebut|date('d/m/Y H:i') }}</div>
+                <div class="event-date"><strong>Date de fin:</strong> {{ event.dateFin|date('d/m/Y H:i') }}</div>
+                <div class="event-description">{{ event.description }}</div>
+                <div class="event-users">
+                    <strong>Participants:</strong>
+                    {% for id_users in event.getIdUsers %}
+                        {{ id_users.username }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+                <div>
+                    <a href="{{ path('app_event_show', {id: event.id}) }}" class="btn-view">Voir</a>
+                </div>
+            </div>
+        {% else %}
+            <p>Aucun événement trouvé.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

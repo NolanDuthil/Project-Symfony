@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<style>
+    .example-wrapper {
+        margin: 1em auto;
+        max-width: 800px;
+        width: 95%;
+        font: 18px/1.5 sans-serif;
+        background-color: #f9f9f9;
+        padding: 2em;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5em;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 0.5em;
+        color: #333;
+    }
+
+    input[type="text"], input[type="password"], input[type="email"], textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        outline: none;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    button[type="submit"], input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button[type="submit"]:hover, input[type="submit"]:hover {
+        background-color: #0056b3;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    button[type="submit"]:active, input[type="submit"]:active {
+        background-color: #003d80;
+    }
+
+    /* Style pour les select (roles) */
+    select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        background-color: white;
+        cursor: pointer;
+    }
+
+    select:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        outline: none;
+    }
+
+    /* Styles pour garder les cases à cocher comme elles sont sans changement */
+    .form-group input[type="checkbox"] {
+        cursor: pointer;
+    }
+
+</style>
+
+<div class="example-wrapper">
+    {{ form_start(form) }}
+    
+    <div class="form-group">
+        {{ form_label(form.email) }}
+        {{ form_widget(form.email) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.username) }}
+        {{ form_widget(form.username) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.password) }}
+        {{ form_widget(form.password) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.nom) }}
+        {{ form_widget(form.nom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.prenom) }}
+        {{ form_widget(form.prenom) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.actif) }}
+        {{ form_widget(form.actif) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.roles) }}
+        {{ form_widget(form.roles) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_widget(form.save) }}
+    </div>
+
+    {{ form_end(form) }}
+</div>
+{% endblock %}
