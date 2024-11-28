@@ -189,5 +189,6 @@ class GestionController extends AbstractController
         }
 
         return new Response('Event updated and emails sent successfully');
+        
     }
 }
