@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\EventRepository;
+use App\Repository\UserRepository;
 
 use App\Entity\Event;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,8 +20,26 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Twig\Environment;
+
 class GestionController extends AbstractController
 {
+
+    private $mailer;
+    private $eventRepository;
+    private $userRepository;
+    private $twig;
+
+    public function __construct(MailerInterface $mailer, EventRepository $eventRepository, UserRepository $userRepository, Environment $twig)
+    {
+        $this->mailer = $mailer;
+        $this->eventRepository = $eventRepository;
+        $this->userRepository = $userRepository;
+        $this->twig = $twig;
+    }
+
     #[Route('/gestion', name: 'app_gestion')]
     public function index(): Response
     {
@@ -154,5 +173,21 @@ class GestionController extends AbstractController
             'form' => $form,
             'controller_name' => 'GestionController',
         ]);
+
+        // Récupérer les utilisateurs liés à l'événement
+        $users = $event->getUsers();
+
+        // Envoyer un email à chaque utilisateur
+        foreach ($users as $user) {
+            $email = (new Email())
+                ->from('duthilnolan@gmail.com')
+                ->to($user->getEmail())
+                ->subject('Event Updated')
+                ->content('Hello');
+
+            $this->mailer->send($email);
+        }
+
+        return new Response('Event updated and emails sent successfully');
     }
 }
