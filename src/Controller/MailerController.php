@@ -42,7 +42,7 @@ class MailerController extends AbstractController
             $data = $form->getData();
 
             $email = (new Email())
-                ->from('votre-email@gmail.com')
+                ->from('duthilnolan@gmail.com')
                 ->to($data['to'])
                 ->subject($data['subject'])
                 ->text($data['content']);

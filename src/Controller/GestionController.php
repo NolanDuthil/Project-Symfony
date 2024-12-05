@@ -10,6 +10,7 @@ use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 
 use App\Entity\Event;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -165,16 +166,7 @@ class GestionController extends AbstractController
         
                 return $this->redirectToRoute('app_gestion_event');
             }
-        }
-
-        return $this->render('gestion/event_saisie.html.twig', [
-            'error' => $error ?? null,
-            'event' => $event,
-            'form' => $form,
-            'controller_name' => 'GestionController',
-        ]);
-
-        // Récupérer les utilisateurs liés à l'événement
+            // Récupérer les utilisateurs liés à l'événement
         $users = $event->getUsers();
 
         // Envoyer un email à chaque utilisateur
@@ -187,6 +179,14 @@ class GestionController extends AbstractController
 
             $this->mailer->send($email);
         }
+        }
+
+        return $this->render('gestion/event_saisie.html.twig', [
+            'error' => $error ?? null,
+            'event' => $event,
+            'form' => $form,
+            'controller_name' => 'GestionController',
+        ]);
 
         return new Response('Event updated and emails sent successfully');
         
